@@ -1,6 +1,7 @@
 from data_users import *
 import pytest
 
+
 @pytest.fixture()
 def payload_new():
     payload_new = {
@@ -10,6 +11,7 @@ def payload_new():
         }
     return payload_new
 
+
 @pytest.fixture()
 def payload_new_unnamed():
     payload_new_unnamed = {
@@ -18,6 +20,7 @@ def payload_new_unnamed():
         }
     return payload_new_unnamed
 
+
 @pytest.fixture()
 def payload_login_new():
     payload_login_new = {
@@ -25,6 +28,7 @@ def payload_login_new():
             "password": DataUniqueUser.PASSWORD
         }
     return payload_login_new
+
 
 @pytest.fixture()
 def payload_existing():
@@ -35,6 +39,7 @@ def payload_existing():
         }
     return payload_existing
 
+
 @pytest.fixture()
 def payload_login():
     payload_login = {
@@ -43,6 +48,7 @@ def payload_login():
         }
     return payload_login
 
+
 @pytest.fixture()
 def payload_email_error():
     payload_email_error = {
@@ -50,6 +56,7 @@ def payload_email_error():
             "password": DataUser.PASSWORD
         }
     return payload_email_error
+
 
 @pytest.fixture()
 def payload_password_error():
