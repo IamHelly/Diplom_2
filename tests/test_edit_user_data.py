@@ -1,24 +1,15 @@
 from urls import Urls
-from data_users import DataUniqueUser
 import requests
 import allure
 
 
 class TestsEditUserData:
     @allure.title('Проверка изменения email с авторизацией')
-    def test_edit_email_with_login_user(self):
+    def test_edit_email_with_login_user(self, payload_new, payload_login_new):
         # Шаг 1 - регистрация пользователя
-        payload = {
-            "email": DataUniqueUser.EMAIL,
-            "password": DataUniqueUser.PASSWORD,
-            "name": DataUniqueUser.NAME
-        }
-        requests.post(f"{Urls.BASE_URL}/api/auth/register", data=payload)
+        requests.post(f"{Urls.BASE_URL}/api/auth/register", data=payload_new)
         # Шаг 2 - логин нового пользователя и получение тела ответа
-        response_login = requests.post(f"{Urls.BASE_URL}/api/auth/login", data={
-            "email": DataUniqueUser.EMAIL,
-            "password": DataUniqueUser.PASSWORD
-        })
+        response_login = requests.post(f"{Urls.BASE_URL}/api/auth/login", payload_login_new)
         token = response_login.json()["accessToken"]
         # Шаг 3 - изменение данных пользователя
         new_email = 'amelystar@yandex.ru'
@@ -30,19 +21,11 @@ class TestsEditUserData:
         requests.delete(f"{Urls.BASE_URL}/api/auth/user", headers={'Authorization': token})
 
     @allure.title('Проверка изменения name с авторизацией')
-    def test_edit_name_with_login_user(self):
+    def test_edit_name_with_login_user(self, payload_new, payload_login_new):
         # Шаг 1 - регистрация пользователя
-        payload = {
-            "email": DataUniqueUser.EMAIL,
-            "password": DataUniqueUser.PASSWORD,
-            "name": DataUniqueUser.NAME
-        }
-        requests.post(f"{Urls.BASE_URL}/api/auth/register", data=payload)
+        requests.post(f"{Urls.BASE_URL}/api/auth/register", data=payload_new)
         # Шаг 2 - логин нового пользователя и получение тела ответа
-        response_login = requests.post(f"{Urls.BASE_URL}/api/auth/login", data={
-            "email": DataUniqueUser.EMAIL,
-            "password": DataUniqueUser.PASSWORD
-        })
+        response_login = requests.post(f"{Urls.BASE_URL}/api/auth/login", data=payload_login_new)
         token = response_login.json()["accessToken"]
         # Шаг 3 - изменение данных пользователя
         new_name = 'Амелия'
