@@ -1,16 +1,12 @@
 from urls import Urls
-from data_users import DataUser
 import requests
 import allure
 
 
 class TestsGetUserOrders:
     @allure.title('Проверка получения заказов авторизованного пользователя')
-    def test_get_user_orders_with_login(self):
-        response_login = requests.post(f"{Urls.BASE_URL}/api/auth/login", data={
-            "email": DataUser.EMAIL,
-            "password": DataUser.PASSWORD
-        })
+    def test_get_user_orders_with_login(self, payload_login):
+        response_login = requests.post(f"{Urls.BASE_URL}/api/auth/login", data=payload_login)
         token = response_login.json()["accessToken"]
         response_get_orders = requests.get(f"{Urls.BASE_URL}/api/orders", headers={'Authorization': token})
         check_success_get_orders = response_get_orders.json()["success"]
